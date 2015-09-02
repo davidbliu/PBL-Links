@@ -33,10 +33,17 @@ class GoController < ApplicationController
 			render 'already_created'
 		else
 			@golink = GoLink.create(key:key, url:url, description:description, type: '', email:current_email)
-			egl =  ElasticsearchGoLink.new(key:key, url:url, description:description, golink_type: '', emails: current_email, parse_id: @golink.id)
+			egl =  ElasticsearchGoLink.new
+			egl.parse_id = @golink.id
+			egl.key = @golink.key
+			egl.url = @golink.url
+			egl.description = @golink.description
+			egl.golink_type = @golink.type
+			egl.email = @golink.email
+			
 			puts egl.parse_id
 			puts egl.key
-			egl.save!
+			egl.save
 
 			puts 'there are now '+ElasticsearchGoLink.all.length.to_s+' golinks'
 			render 'successfully_added'
@@ -70,6 +77,10 @@ class GoController < ApplicationController
 
 	def finished_adding
 		
+	end
+
+	def extension
+		redirect_to 'http://cs70.link/extension-guide'
 	end
 
 

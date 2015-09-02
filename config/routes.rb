@@ -7,6 +7,8 @@ Portal::Application.routes.draw do
   get '/go/already_created', to:'go#already_created'
   get '/go/search', to:'go#search'
 
+  get '/go/extension',to:'go#extension'
+
   get "/auth/logout", to: "auth#logout"
   get "/auth/google_oauth2/callback", to: "auth#google_callback"
 
