@@ -1,1 +1,38 @@
+<style type = 'text/css'>
+body{
+	text-align: center;
+}
+.top-input{
+	padding:5px;
+	width:230px;
+}
+#description-input{
+	margin-top:5px;
+	width:520px;
+	padding:5px;
+}
+#add-btn{
+	margin-top:10px;
+	padding:10px;
+}
+</style>
+<p><a href = '/'>Home</a></p>
 <h1>Add a Link</h1>
+cs70.link/<input type = 'text' id = 'key-input' class = 'top-input' placeholder = 'key'></input> redirects to 
+<input type = 'text' id = 'url-input' class = 'top-input' placeholder = 'url'></input>
+<div>
+Description: <input type = 'text' id = 'description-input' placeholder = 'description'></input>
+</div>
+
+<button id = 'add-btn'>Add this link</button>
+
+<%= javascript_include_tag "application" %>
+
+<script type = 'text/javascript'>
+$('#add-btn').click(function(){
+	key = encodeURIComponent($('#key-input').val());
+	url = encodeURIComponent($('#url-input').val());
+	description = $('#description-input').val();
+	window.location = '/go/add_link?key='+key+'&url='+url+'&description='+description;
+});
+</script>

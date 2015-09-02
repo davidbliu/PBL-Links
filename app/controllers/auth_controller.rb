@@ -1,5 +1,5 @@
 class AuthController < ApplicationController
-	def index
+	def info
 		
 	end
 
@@ -19,6 +19,9 @@ class AuthController < ApplicationController
 	end
 
 	def login
+	end
+
+	def not_signed_in
 	end
 
 end

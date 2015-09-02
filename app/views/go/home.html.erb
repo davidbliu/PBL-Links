@@ -1,7 +1,43 @@
+<style type = 'text/css'>
+body{
+	text-align: center;
+}
+#search-input{
+	padding:10px;
+	width:500px;
+}
+#auth-section{
+	margin-top:100px;
+	width:100%;
+	border-top: 1px solid rgba(0,0,0,0.1);
+}
+</style>
+
 <h1>CS70 Links</h1>
-<% if current_email and current_email != "" %>
-<p>You are using CS70 Links as <%= current_email %></p>
-<p><a href = '/auth/logout'>Sign out</a></p>
-<% else %>
-<p><a href = '/auth/google_oauth2'>Sign in</a></p>
+
+<p id = 'navigation-section'>
+	<a href = '/go/add'>Add a Link</a>
+</p>
+
+<p id = 'search-section'>
+	<input id = 'search-input' type = 'text' placeholder = 'Search for links'></input>
+</p>
+
+
+<p id = 'types-section'>
+</p>
+
+<% @golinks.each do |golink| %>
+<div><%= golink.key %></div>
 <% end %>
+
+
+<div id = 'auth-section'>
+	<p><%= Member.get_member_type(current_email).capitalize %></p>
+	<% if current_email and current_email != "" %>
+	<p>You are using CS70 Links as <%= current_email %></p>
+	<p><a href = '/auth/logout'>Sign out</a></p>
+	<% else %>
+	<p><a href = '/auth/google_oauth2'>Sign in</a></p>
+	<% end %>
+</div>
