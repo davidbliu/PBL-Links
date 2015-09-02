@@ -11,7 +11,16 @@ body{
 	width:100%;
 	border-top: 1px solid rgba(0,0,0,0.1);
 }
+#loading-gif{
+  height:150px;
+  /*position:fixed;*/
+  /*left:500px;*/
+  /*top:175px;*/
+  display:none;
+  z-index:5000;
+}
 </style>
+
 
 <h1>CS70 Links</h1>
 
@@ -23,13 +32,13 @@ body{
 	<input id = 'search-input' type = 'text' placeholder = 'Search for links'></input>
 </p>
 
+<img src = 'https://cdn.wpfaster.org/wp-content/uploads/2013/06/loading-gif.gif' id = 'loading-gif'></img>
+<p id = 'search-results'>
+</p>
 
 <p id = 'types-section'>
 </p>
 
-<% @golinks.each do |golink| %>
-<div><%= golink.key %></div>
-<% end %>
 
 
 <div id = 'auth-section'>
@@ -40,4 +49,39 @@ body{
 	<% else %>
 	<p><a href = '/auth/google_oauth2'>Sign in</a></p>
 	<% end %>
+	<p><a href = '/go/extension'>Get the extension</a></p>
 </div>
+
+<%= javascript_include_tag 'application' %>
+<script type = 'text/javascript'>
+
+function showSpinner(){
+	$("#loading-gif").show();
+}
+function hideSpinner(){
+	$('#loading-gif').hide();
+}
+function pullSearchResults(term){
+	showSpinner();
+	$.ajax({
+	      url: '/go/search',
+	      type: 'get',
+	      data: {'q':term},
+	      success:function(data){
+	      	hideSpinner();
+	      	$('#search-results').html(data);
+	      },
+	      error:function (xhr, textStatus, thrownError){
+	      	hideSpinner();
+	      	console.log('failed');
+	      }
+	  });    
+
+}
+$('#search-input').keypress(function(e){
+	if(e.which == 13) {
+        term = $(this).val();
+        pullSearchResults(term);
+    }
+});
+</script>

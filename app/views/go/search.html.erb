@@ -1,0 +1,23 @@
+<style type = 'text/css'>
+body{
+	text-align: center;
+}
+.text-muted{
+	opacity:0.5;
+}
+.url-div{
+	color:#006621;
+}
+.key-div>a{
+	color:#1a0dab;
+}
+</style>
+
+
+<% @golinks.each do |golink| %>
+<div class = 'golink-div'>
+	<div class = 'key-div'><a href = 'http://cs70.link/<%= golink.key %>'><%= golink.key %></a></div>
+	<div class = 'url-div'><%= golink.url %></div>
+	<div class = 'text-muted'><%= golink.description %></div>
+</div>
+<% end %>
