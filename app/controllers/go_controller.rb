@@ -12,7 +12,7 @@ class GoController < ApplicationController
 		q = params[:q]
 		@golinks = GoLink.search(q)
 		if Member.get_member_type(current_email) == 'student'
-			@golinks = GoLink.select{|x| x.permissions != 'instructor'}
+			@golinks = @golinks.select{|x| x.permissions != 'instructor'}
 		end
 	end
 
@@ -40,7 +40,7 @@ class GoController < ApplicationController
 			egl.description = @golink.description
 			egl.golink_type = @golink.type
 			egl.email = @golink.email
-			
+
 			puts egl.parse_id
 			puts egl.key
 			egl.save
