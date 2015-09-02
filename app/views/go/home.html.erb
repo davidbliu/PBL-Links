@@ -1,0 +1,7 @@
+<h1>CS70 Links</h1>
+<% if current_email and current_email != "" %>
+<p>You are using CS70 Links as <%= current_email %></p>
+<p><a href = '/auth/logout'>Sign out</a></p>
+<% else %>
+<p><a href = '/auth/google_oauth2'>Sign in</a></p>
+<% end %>
